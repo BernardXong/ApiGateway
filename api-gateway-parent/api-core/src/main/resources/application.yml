@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: apiGateway-core
+  devtools: #配置热启动模式
+    restart:
+      enabled: true #热部署生效
+
+mybatis:
+  mapper-locations: classpath*:com/xy/api/**/mapper/*.xml   #mapper文件的位置
+

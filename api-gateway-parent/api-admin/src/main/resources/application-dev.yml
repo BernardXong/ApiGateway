@@ -1,0 +1,4 @@
+server:
+  port: 9202 #配置端口号
+  servlet:
+    context-path: /apiGateway-admin

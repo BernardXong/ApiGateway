@@ -1,0 +1,6 @@
+server:
+  port: 9201 #配置端口号
+  servlet:
+    context-path: /apiGateway-core
+  max-http-header-size: 4048576
+
