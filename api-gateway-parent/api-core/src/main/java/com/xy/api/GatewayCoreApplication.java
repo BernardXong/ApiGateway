@@ -1,8 +1,10 @@
 package com.xy.api;
 
 
+import com.xy.api.init.NettyInitialServer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -15,6 +17,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import javax.annotation.Resource;
+
 /**
  * GatewayCoreApplication
  *
@@ -25,11 +29,11 @@ import org.springframework.web.filter.CorsFilter;
 @EnableAsync
 @ServletComponentScan
 @SpringBootApplication
-public class GatewayCoreApplication extends SpringBootServletInitializer {
+public class GatewayCoreApplication extends SpringBootServletInitializer implements CommandLineRunner {
 
     private static final Logger log = LogManager.getLogger(GatewayCoreApplication.class);
-
-
+    @Resource
+    private NettyInitialServer nettyInitialServer;
     public static void main(String[] args) {
         SpringApplication application = new SpringApplication(GatewayCoreApplication.class);
         application.run(args);
@@ -65,5 +69,9 @@ public class GatewayCoreApplication extends SpringBootServletInitializer {
         return corsConfiguration;
     }
 
-
+    @Override
+    public void run(String... args) throws Exception {
+        log.info("api-core netty init startup . (网关核心netty组件启动。)");
+        nettyInitialServer.run();
+    }
 }

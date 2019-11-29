@@ -3,4 +3,9 @@ server:
   servlet:
     context-path: /apiGateway-core
   max-http-header-size: 4048576
-
+netty:
+  serverPort: 9211
+  #默认 Windows NT 200;Linux/Mac 128
+  sobackLog: 200
+  #最大文本长度，默认2000KB
+  maxContentLength: 2000
