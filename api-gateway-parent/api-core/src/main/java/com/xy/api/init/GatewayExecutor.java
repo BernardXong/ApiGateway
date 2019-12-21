@@ -14,6 +14,6 @@ public class GatewayExecutor {
 
 
     public CmptResult execute(CmptRequest cmptRequest){
-
+            return null;
     }
 }
