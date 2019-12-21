@@ -23,6 +23,8 @@ import org.apache.logging.log4j.Logger;
 public class HttpServerInboundHandler extends ChannelInboundHandlerAdapter {
 
     private static final Logger logger = LogManager.getLogger(HttpServerInboundHandler.class);
+
+    private GatewayExecutor gatewayExecutor = new GatewayExecutor();
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception{
         try {
@@ -50,5 +52,7 @@ public class HttpServerInboundHandler extends ChannelInboundHandlerAdapter {
     private FullHttpResponse encapsulateResponse(CmptResult cmptResult){
             return null;
     }
+
+
 
 }

@@ -73,23 +73,5 @@ public class CmptRequest implements HttpRequest {
         this.cmptDecoderResult = decoderResult;
     }
 
-    @Override
-    public HttpMethod getMethod() {
-        return null;
-    }
 
-    @Override
-    public String getUri() {
-        return null;
-    }
-
-    @Override
-    public HttpVersion getProtocolVersion() {
-        return null;
-    }
-
-    @Override
-    public DecoderResult getDecoderResult() {
-        return null;
-    }
 }
