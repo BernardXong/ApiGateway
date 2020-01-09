@@ -9,3 +9,17 @@ netty:
   sobackLog: 200
   #最大文本长度，默认2000KB
   maxContentLength: 2000
+spring:
+  redis:
+    database: 0
+    host: 192.168.0.128
+    port: 6379
+    password: 123456
+    jedis:
+      pool:
+        max-active: 100
+        max-idle: 3
+        max-wait: -1
+        min-idle: 0
+    timeout: 1000
+
