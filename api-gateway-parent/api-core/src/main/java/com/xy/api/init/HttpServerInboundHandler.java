@@ -26,11 +26,15 @@ public class HttpServerInboundHandler extends ChannelInboundHandlerAdapter {
 
     private GatewayExecutor gatewayExecutor = new GatewayExecutor();
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception{
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
         try {
             if (msg instanceof HttpRequest && msg instanceof HttpContent) {
                 CmptRequest cmptRequest = CmptRequestUtil.convert(ctx, msg);
                 CmptResult cmptResult = this.gatewayExecutor.execute(cmptRequest);
+                //签名认证、鉴权
+                //流量控制
+                //缓存
+
                 FullHttpResponse response = encapsulateResponse(cmptResult);
                 ctx.write(response);
                 ctx.flush();
