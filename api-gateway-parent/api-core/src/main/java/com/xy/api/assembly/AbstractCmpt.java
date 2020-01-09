@@ -1,6 +1,5 @@
 package com.xy.api.assembly;
 
-import com.xy.api.assembly.ICmpt;
 import com.xy.api.model.CmptRequest;
 import com.xy.api.model.CmptResult;
 import com.xy.api.model.FieldDTO;
