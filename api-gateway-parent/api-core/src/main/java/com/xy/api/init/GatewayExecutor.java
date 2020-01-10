@@ -3,7 +3,9 @@ package com.xy.api.init;
 import com.xy.api.model.CmptRequest;
 import com.xy.api.model.CmptResult;
 import com.xy.api.model.FieldDTO;
+import com.xy.api.utils.AuthType;
 import com.xy.api.utils.RedisUtil;
+import io.netty.handler.codec.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +29,9 @@ public class GatewayExecutor {
     @Autowired
     private RedisUtil redisUtil;
     private String assembleKey = "assembly";
-    private Map<String,Map<String,FieldDTO>> assembleMap = new LinkedHashMap<>(16);
+    //认证类型，包含token、ip域名、密钥等
+    private String authTypeName = "auth_type";
+    private Map<String,Map<String,Map<String,FieldDTO>>> assembleMap = new LinkedHashMap<>(16);
 
     @PostConstruct
     public void init(){
@@ -35,14 +39,11 @@ public class GatewayExecutor {
         Set<String> assemblyTitles = redisUtil.get(assembleKey);
         //循环组件配置，放置map里
         for(String s : assemblyTitles){
-            Map<String,FieldDTO> params = redisUtil.get(s);
-            if(null != params){
-                //TODO 有序存值待开发
-                assembleMap.put(s,params);
-            }
-
+            //认证组件又包含很多子组件(token认证、ip域名、密钥认证)
+            Map<String,Map<String,FieldDTO>> params = redisUtil.get(s);
+            assembleMap.put(s,params);
         }
-        //获取网关执行优先级配置
+
     }
 
     /***
@@ -51,7 +52,14 @@ public class GatewayExecutor {
      * @return
      */
     public CmptResult execute(CmptRequest cmptRequest){
-
+           HttpHeaders header =  cmptRequest.headers();
+            String auth = String.valueOf(header.get(authTypeName));
+//            switch (auth){
+//                case AuthType.TOKEN.getName():
+//                    return null;
+//                default:
+//                    return null;
+//            }
             return null;
     }
 
