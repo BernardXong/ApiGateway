@@ -17,18 +17,14 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.redis.core.RedisTemplate;
+
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * GatewayCoreApplication
@@ -45,8 +41,8 @@ public class GatewayCoreApplication extends SpringBootServletInitializer impleme
     private static final Logger log = LogManager.getLogger(GatewayCoreApplication.class);
     @Resource
     private NettyInitialServer nettyInitialServer;
-    //@Autowired
-    //private RedisUtil redisUtil;
+    @Autowired
+    private RedisUtil redisUtil;
 
 
 
@@ -89,25 +85,29 @@ public class GatewayCoreApplication extends SpringBootServletInitializer impleme
     public void run(String... args) throws Exception {
         log.info("api-core netty init startup . (网关核心netty组件启动。)");
         nettyInitialServer.run();
-//        Map<String,FieldDTO> params = new HashMap<>(16);
-//        FieldDTO fieldDTO = new FieldDTO();
-//        fieldDTO.setTitle(AssemblyTitle.AUTHEN.getTitle() + StringSymbol.SEPARATOR + "expire");
-//        String fieldName = "expire";
-//        fieldDTO.setName(fieldName);
-//        fieldDTO.setDefaultValue("86400");
-//        fieldDTO.setRequired(true);
-//        fieldDTO.setDescription("认证鉴权过期时间定义");
-//            params.put("expire",fieldDTO);
-//        redisUtil.set(AssemblyTitle.AUTHEN.getTitle(),params);
+//        Map<String,Map<String,FieldDTO>> assemblyMap = new HashMap<>(16);
+//            Map<String,FieldDTO> params = new HashMap<>(16);
+//            FieldDTO fieldDTO = new FieldDTO();
+//            fieldDTO.setTitle(AssemblyTitle.AUTHEN.getTitle() + StringSymbol.SEPARATOR + "token" + StringSymbol.SEPARATOR + "expire");
+//            String fieldName = "expire";
+//            fieldDTO.setName(fieldName);
+//            fieldDTO.setDefaultValue("86400");
+//            fieldDTO.setRequired(true);
+//            fieldDTO.setDescription("认证鉴权过期时间定义");
+//                params.put("token"+ StringSymbol.SEPARATOR +"expire",fieldDTO);
+//        assemblyMap.put(AssemblyTitle.AUTHEN.getTitle() + StringSymbol.SEPARATOR + "token",params);
+//        redisUtil.set(AssemblyTitle.AUTHEN.getTitle(),assemblyMap);
 
         //authentication cache flowControl log router
-//        Set<String> params = new HashSet<>(16);
+//        Set<String> params = new LinkedHashSet<>(16);
 //        params.add("authentication");
 //        params.add("cache");
 //        params.add("flowControl");
-//        params.add("log");
 //        params.add("router");
+//        params.add("log");
 //        redisUtil.set("assembly",params);
+
+
 
     }
 
